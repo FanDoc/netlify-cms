@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: tech4him1/netlify-cms-test
+  repo: tech4him1/blank
 
 media_folder: "assets/uploads"
 
