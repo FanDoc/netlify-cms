@@ -216,7 +216,7 @@ This tree is used by the Netlify CMS to store metadata information for specific 
   }
 
   persistFiles(entry, mediaFiles, options) {
-    this.reAuth(); return Promise.reject();
+    this.reAuth(); return Promise.reject((new APIError("Please reauthenticate.", 401, 'GitHub')));
     const newFiles = [...mediaFiles, entry].filter(file => !file.uploaded);
     const uploadsPromise = Promise.all(newFiles.map(file => this.uploadBlob(file)));
     const fileTreePromise = uploadsPromise.then(files => this.composeFileTree(files));
