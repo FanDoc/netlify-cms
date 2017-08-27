@@ -60,9 +60,13 @@ export default class API {
     .catch(err => [err, null])
     .then(([response, value]) => (response.ok ? value : Promise.reject([value, response])))
     .catch(([errorValue, response]) => {
+      const status = response && response.status;
       const errorMessageProp = (errorValue && errorValue.message) ? errorValue.message : null;
       const message = errorMessageProp || (isString(errorValue) ? errorValue : "");
-      throw new APIError(message, response && response.status, 'GitHub', { response, errorValue });
+      if (status === 401) {
+        this.reAuth();
+      }
+      throw new APIError(message, status, 'GitHub', { response, errorValue });
     });
   }
 
@@ -216,7 +220,6 @@ This tree is used by the Netlify CMS to store metadata information for specific 
   }
 
   persistFiles(entry, mediaFiles, options) {
-    this.reAuth(); return Promise.reject((new APIError("Please reauthenticate.", 401, 'GitHub')));
     const newFiles = [...mediaFiles, entry].filter(file => !file.uploaded);
     const uploadsPromise = Promise.all(newFiles.map(file => this.uploadBlob(file)));
     const fileTreePromise = uploadsPromise.then(files => this.composeFileTree(files));
