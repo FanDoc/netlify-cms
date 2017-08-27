@@ -131,7 +131,7 @@ class App extends React.Component {
       return <Loader active>Loading configuration...</Loader>;
     }
 
-    if (user == null) {
+    if (user == null && !authPopup) {
       return this.authenticating();
     }
 

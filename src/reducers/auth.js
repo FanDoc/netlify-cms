@@ -5,7 +5,8 @@ const auth = (state = null, action) => {
   switch (action.type) {
     case AUTH_REQUEST:
       const popup = (state && state.get('popup')) || false;
-      return Immutable.Map({ isFetching: true, popup });
+      const user = state && state.get('user');
+      return Immutable.Map({ isFetching: true, popup, user });
     case AUTH_SUCCESS:
       return Immutable.fromJS({ user: action.payload, popup: false });
     case AUTH_FAILURE:
