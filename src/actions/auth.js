@@ -6,6 +6,7 @@ const { notifSend } = notifActions;
 export const AUTH_REQUEST = 'AUTH_REQUEST';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAILURE = 'AUTH_FAILURE';
+export const SHOW_AUTH_POPUP = 'SHOW_AUTH_POPUP';
 export const LOGOUT = 'LOGOUT';
 
 export function authenticating() {
@@ -16,7 +17,7 @@ export function authenticating() {
 
 export function reAuth() {
   return {
-    type: "SHOW_AUTH_POPUP",
+    type: SHOW_AUTH_POPUP,
   };
 }
 
