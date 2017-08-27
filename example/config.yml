@@ -1,6 +1,6 @@
 backend:
-  name: test-repo
-  delay: 0.1
+  name: github
+  repo: tech4him1/netlify-cms-test
 
 media_folder: "assets/uploads"
 

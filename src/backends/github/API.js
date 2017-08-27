@@ -8,7 +8,8 @@ import { EDITORIAL_WORKFLOW, status } from "../../constants/publishModes";
 import { APIError, EditorialWorkflowError } from "../../valueObjects/errors";
 
 export default class API {
-  constructor(config) {
+  constructor(config, reAuth) {
+    this.reAuth = reAuth;
     this.api_root = config.api_root || "https://api.github.com";
     this.token = config.token || false;
     this.branch = config.branch || "master";
@@ -215,6 +216,7 @@ This tree is used by the Netlify CMS to store metadata information for specific 
   }
 
   persistFiles(entry, mediaFiles, options) {
+    this.reAuth(); return Promise.reject();
     const newFiles = [...mediaFiles, entry].filter(file => !file.uploaded);
     const uploadsPromise = Promise.all(newFiles.map(file => this.uploadBlob(file)));
     const fileTreePromise = uploadsPromise.then(files => this.composeFileTree(files));
