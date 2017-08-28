@@ -26,8 +26,6 @@ export default class TestRepo {
     this.config = config;
   }
 
-  setUser() {}
-
   authComponent() {
     return AuthenticationPage;
   }
